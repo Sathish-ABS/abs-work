@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitlab-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitlab
+  template:
+    metadata:
+      labels:
+        app: gitlab
+    spec:
+      containers:
+      - name: gitlab-container
+        image: gitlab/gitlab-ce:latest
+        ports:
+        - containerPort: 80
+        - containerPort: 22
+        volumeMounts:
+        - name: gitlab-config
+          mountPath: /etc/gitlab
+        - name: gitlab-logs
+          mountPath: /var/log/gitlab
+        - name: gitlab-data
+          mountPath: /var/opt/gitlab
+        env:
+          - name: POSTGRES_HOST
+            value: "10.109.122.84"
+          - name: POSTGRES_PORT
+            value: "5432"
+          - name: POSTGRES_DB
+            value: "yourdbname"
+          - name: POSTGRES_USER
+            value: "yourdbuser"
+          - name: POSTGRES_PASSWORD
+            value: "yourdbpassword"
+      volumes:
+      - name: gitlab-config
+        emptyDir: {}
+      - name: gitlab-logs
+        emptyDir: {}
+      - name: gitlab-data
+        emptyDir: {}

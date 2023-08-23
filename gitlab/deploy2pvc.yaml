@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitlab-deployment2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitlab
+  template:
+    metadata:
+      labels:
+        app: gitlab
+    spec:
+      volumes:
+      - name: gitlab-config
+        persistentVolumeClaim:
+          claimName: gitlab-config-pvcs
+      - name: gitlab-logs
+        persistentVolumeClaim:
+          claimName: gitlab-logs-pvcs
+      - name: gitlab-data
+        persistentVolumeClaim:
+          claimName: gitlab-data-pvcs
+      containers:
+      - name: gitlab-container
+        image: gitlab/gitlab-ce:latest
+        ports:
+        - containerPort: 80
+        - containerPort: 22
+        volumeMounts:
+        - name: gitlab-config
+          mountPath: /etc/gitlab
+        - name: gitlab-logs
+          mountPath: /var/log/gitlab
+        - name: gitlab-data
+          mountPath: /var/opt/gitlab
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gitlab-config-pvcs
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: slows
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gitlab-logs-pvcs
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: slows
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gitlab-data-pvcs
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: slows

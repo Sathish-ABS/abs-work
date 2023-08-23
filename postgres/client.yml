@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: psql-client-pod
+spec:
+  containers:
+  - name: psql-client
+    image: postgres:latest  # You can use an appropriate PostgreSQL client image
+    command: ["sleep", "infinity"]
+    tty: true
+  restartPolicy: Never

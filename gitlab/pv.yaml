@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: gitlab-config-pvss
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: slows
+  hostPath:
+    path: /home/abs/gitlab
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: gitlab-logs-pvss
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: slows
+  hostPath:
+    path: /home/abs/gitlab
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: gitlab-data-pvss
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: slows
+  hostPath:
+    path: /home/abs/gitlab

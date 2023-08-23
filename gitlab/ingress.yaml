@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gitlab-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx # Specify the IngressClass name here
+spec:
+  tls:
+    - hosts:
+        - abs.gitlab.com
+      secretName: gitlab
+  rules:
+    - host: abs.gitlab.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gitlab-deployment
+                port:
+                  number: 80

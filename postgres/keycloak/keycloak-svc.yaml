@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: keycloak-service
+  namespace: postgres  # Replace 'postgres' with the correct namespace if needed
+spec:
+  selector:
+    app: keycloak  # Match the labels used for your Keycloak deployment
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080  # Keycloak's default HTTP port
+  type: LoadBalancer  # Use 'ClusterIP' for internal access only
+
