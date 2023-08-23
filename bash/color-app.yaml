@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tscript-deployment
+  namespace: nandhu
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tscript
+  template:
+    metadata:
+      labels:
+        app: tscript
+    spec:
+      containers:
+      - name: tscript-container
+        image: nandha26/my-repo:v1
+        env:
+        - name: color
+          value: "blue"

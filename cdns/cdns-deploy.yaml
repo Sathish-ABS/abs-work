@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dns-server
+  namespace: dns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dns-server
+  template:
+    metadata:
+      labels:
+        app: dns-server
+    spec:
+      containers:
+        - name: coredns
+          image: coredns/coredns:1.8.6
+          ports:
+            - containerPort: 53
+          volumeMounts:
+            - name: dns-records
+              mountPath: /etc/coredns
+      volumes:
+        - name: dns-records
+          configMap:
+            name: dns-records
+

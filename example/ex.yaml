@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: my-app
+          image: your-image
+          ports:
+            - containerPort: 443
+      # Add the following section for TLS
+      # Replace "example.com" with your domain or hostname
+      tls:
+        - hosts:
+            - example.com
+          secretName: my-tls-secret

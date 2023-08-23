@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-deployment
+  namespace: aaron
+  labels:
+    app: aaron
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: aaron
+  template:
+    metadata:
+      labels:
+        app: aaron
+    spec:
+      containers:
+      - name: test-node
+        image: othnielnkarlax/knote:blue

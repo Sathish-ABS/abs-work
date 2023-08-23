@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: gitlab-config-pv-gttt
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /home/abs/aaron/gtttt
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: gitlab-logs-pv-gttt
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /home/abs/aaron/gtttt
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: gitlab-data-pv-gttt
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /home/abs/aaron/gtttt

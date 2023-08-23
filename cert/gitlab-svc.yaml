@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2023-08-18T10:35:55Z"
+  name: gitlab-https
+  namespace: postgres
+  resourceVersion: "2540669"
+  uid: 3c1e32d4-43ef-431c-b283-d22cfefde74e
+spec:
+  allocateLoadBalancerNodePorts: true
+  clusterIP: 10.98.118.68
+  clusterIPs:
+  - 10.98.118.68
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 30702
+    port: 443
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: gitlab
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - ip: 192.168.1.246

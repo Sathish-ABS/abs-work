@@ -1,0 +1,7 @@
+global:
+  edition: ce
+  certmanager-issuer:
+    email: samsunggalaxyf04othniel@gmail.com
+  gitlab-runner:
+    runners:
+      privileged: true

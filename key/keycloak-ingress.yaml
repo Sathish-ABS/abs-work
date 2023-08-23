@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: keycloak-ingress
+  namespace: key
+spec:
+  rules:
+    - host: keycloak.example.com  # Update this with your domain
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: keycloak
+                port:
+                  number: 8080
+

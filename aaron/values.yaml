@@ -1,0 +1,8 @@
+global:
+  hosts:
+    domain: example.com
+
+gitlab:
+  persistence:
+    enabled: true
+    storageClass: local-storage
