@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: directus-deployment
+  namespace: directus-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: directus
+  template:
+    metadata:
+      labels:
+        app: directus
+    spec:
+      initContainers:
+        - name: set-permissions
+          image: busybox:latest
+          command: ["sh", "-c", "chown -R 1000:1000 /directus-volume/database /directus-volume/uploads"]
+          volumeMounts:
+            - name: database-volume
+              mountPath: /directus-volume/database
+            - name: uploads-volume
+              mountPath: /directus-volume/uploads
+      containers:
+        - name: directus
+          image: directus/directus:latest
+          ports:
+            - containerPort: 8055
+          env:
+            - name: KEY
+              value: your_key_value_here
+            - name: SECRET
+              value: your_secret_value_here
+            - name: ADMIN_EMAIL
+              value: abs@example.com
+            - name: ADMIN_PASSWORD
+              value: abs
+          volumeMounts:
+            - name: database-volume
+              mountPath: /directus-volume/database
+            - name: uploads-volume
+              mountPath: /directus-volume/uploads
+      volumes:
+        - name: database-volume
+          persistentVolumeClaim:
+            claimName: directus-database-pvc
+        - name: uploads-volume
+          persistentVolumeClaim:
+            claimName: directus-uploads-pvc

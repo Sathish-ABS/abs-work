@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: directus-deployment
+  namespace: directus-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: directus
+  template:
+    metadata:
+      labels:
+        app: directus
+    spec:
+      containers:
+        - name: directus
+          image: directus/directus:latest
+          ports:
+            - containerPort: 8055
+          env:
+            - name: KEY
+              value: 'replace-with-random-value'
+            - name: SECRET
+              value: 'replace-with-random-value'
+            - name: ADMIN_EMAIL
+              value: 'admin@example.com'
+            - name: ADMIN_PASSWORD
+              value: 'd1r3ctu5'
+          volumeMounts:
+            - name: directus-db-volume
+              mountPath: /directus/database
+            - name: directus-uploads-volume
+              mountPath: /directus/uploads
+      volumes:
+        - name: directus-db-volume
+          persistentVolumeClaim:
+            claimName: directus-db-pvc
+        - name: directus-uploads-volume
+          persistentVolumeClaim:
+            claimName: directus-uploads-pvc

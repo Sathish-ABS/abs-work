@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: directus-deployment
+  namespace: directus-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: directus
+  template:
+    metadata:
+      labels:
+        app: directus
+    spec:
+      containers:
+        - name: directus
+          image: directus/directus:latest
+          ports:
+            - containerPort: 8055
+          volumeMounts:
+            - name: directus-data
+              mountPath: /directus/database
+            - name: directus-uploads
+              mountPath: /directus/uploads
+          envFrom:
+            - secretRef:
+                name: directus-secret
+      volumes:
+        - name: directus-data
+          persistentVolumeClaim:
+            claimName: directus-data-pvc
+        - name: directus-uploads
+          persistentVolumeClaim:
+            claimName: directus-uploads-pvc

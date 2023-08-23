@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    author: sathish
+  name: canary-deploy
+  namespace: sathish
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      author: sathish
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        author: sathish
+    spec:
+      containers:
+      - image: sathishin2k/node-color:v2
+        name: node-color
+        resources: {}
+status: {}

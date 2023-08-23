@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: directus-config
+  namespace: directus-dev
+data:
+  STORAGE_ADAPTER: "file"
+  FILE_ADAPTER: "local"
+  FILES_FILESYSTEM_ROOT: "/directus/uploads/data.db"

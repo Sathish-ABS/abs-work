@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: directus-database-pvc
+  namespace: directus-dev
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: directus
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: directus-uploads-pvc
+  namespace: directus-dev
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: directus
+  resources:
+    requests:
+      storage: 1Gi
